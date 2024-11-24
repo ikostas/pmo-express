@@ -2,7 +2,7 @@
 
 The goal is to manage the project lifecycle:
 
-![Project lifecycle](pmo.png Project lifecycle)
+![Project lifecycle](pmo.png "Project lifecycle")
 
 ## Installation
 
