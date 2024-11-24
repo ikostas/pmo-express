@@ -1,0 +1,26 @@
+table
+  thead
+    tr
+      td ID
+      td Issue name
+      td Date raised
+      td Status
+      if formDetails.issueType !== 'risk'
+        td Priority
+        td Severity
+        td Rating
+      else
+        td Risk probability
+        td Risk impact
+        td Owner
+        td Risk score
+      if formDetails.issueType === 'issue'
+        td Type
+      td Actions
+  tbody
+    if formDetails.issueType === 'issue'
+      each issue in project.Issues.filter(item => item.type === 'concern' || item.type === 'off-specification')
+        include partial_issueTableRows
+    else
+      each issue in project.Issues.filter(item => item.type === formDetails.issueType)
+        include partial_issueTableRows

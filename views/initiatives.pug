@@ -1,0 +1,58 @@
+extends layout
+
+block content
+  h1= title
+  p
+    a(href="/pmo/add_initiative")
+      span.material-symbols-outlined add
+  p
+    if status === 'open'
+      a(href='/pmo/initiatives?status=closed') Show closed
+      | 
+      | | 
+      a(href='/pmo/initiatives') Show all
+    else if status === 'closed'
+      a(href='/pmo/initiatives?status=open') Show open
+      | 
+      | | 
+      a(href='/pmo/initiatives') Show all
+    else
+      a(href='/pmo/initiatives?status=closed') Show closed
+      | 
+      | | 
+      a(href='/pmo/initiatives?status=open') Show open
+  if initiatives.length === 0
+    p No initiatives found
+  else
+    table
+      thead
+        tr
+          td ID
+          td Initiave name
+          td Author
+          td Brief Description
+          td Status
+          td Link to the project (if any)
+          td Action
+      tbody
+        each initiative in initiatives
+          tr(id='setup_'+initiative.id)
+            td= initiative.id
+            td
+              a(href='/pmo/initiative/' + initiative.id) #{initiative.name}
+            td #{initiative.initiator.firstName} #{initiative.initiator.lastName}
+            td= initiative.brief_desc
+            td= initiative.status
+            td
+              if initiative.project_link
+                a(href='/pmo/project/' + initiative.project_link) #{initiative.project.name}
+            td
+              a(href='#', hx-delete='/pmo/initiative/' + initiative.id, hx-target='#setup_' + initiative.id, hx-confirm='Are you sure to delete initiative?')
+                span.material-symbols-outlined remove
+              | 
+              a(href='/pmo/initiative/' + initiative.id + '/edit')
+                span.material-symbols-outlined edit
+              | 
+              a(href='/pmo/initiative/' + initiative.id + '/change_status')
+                - var symbol = initiative.status === 'open' ? 'close' : 'undo'
+                span.material-symbols-outlined #{symbol}

@@ -1,0 +1,118 @@
+extends layout
+
+block content
+  script.
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('.open-modal').forEach(link => {
+        link.addEventListener('click', function (event) {
+          event.preventDefault(); // Prevent the default link behavior
+
+          // Get the link ID from the data attribute
+          const linkId = this.getAttribute('data-link-id');
+
+          // Set the hidden field value
+          document.getElementById('project_id').value = linkId;
+
+          // Open the modal
+          document.getElementById('myModal').style.display = 'block';
+        });
+      });
+
+      // Close the modal when the user clicks on <span> (x)
+      document.querySelector('.close').onclick = function() {
+        document.getElementById('myModal').style.display = 'none';
+      };
+
+      // Close the modal when the user clicks anywhere outside of the modal
+      window.onclick = function(event) {
+        const modal = document.getElementById('myModal');
+        if (event.target === modal) {
+          modal.style.display = 'none';
+        }
+      };
+    });
+  h1= title
+  if type === 'program'
+    - var typeFilter='?type=program'
+  else
+    - var typeFilter=''
+  p
+    if status === 'open'
+      a(href='/pmo?status=closed' + typeFilter) Show closed
+      | 
+      | | 
+      a(href='/pmo') Show all
+    else if status === 'closed'
+      a(href='/pmo?status=open' + typeFilter) Show open
+      | 
+      | | 
+      a(href='/pmo') Show all
+    else
+      a(href='/pmo?status=closed' + typeFilter) Show closed
+      | 
+      | | 
+      a(href='/pmo?status=open' + typeFilter) Show open
+  p
+    a(href="/pmo/add_project")
+      span.material-symbols-outlined add
+  if projects.length === 0
+    p No projects found
+  else
+    table
+      thead
+        tr
+          td ID
+          td Status
+          td Project name
+          td Project Manager
+          td Project Sponsor
+          td Type 
+          td Start date
+          td End date
+          td Opened/Closed
+          td Included in
+          td Program/Portfolio
+      tbody
+        each project in projects
+          tr
+            td= project.id
+            td
+              if project.statuses[0]
+                div(class='circle ' +  project.statuses[0].status)
+            td
+              a(href='/pmo/project/' + project.id) #{project.name}
+            td #{project.Manager.firstName} #{project.Manager.lastName}
+            td #{project.Sponsor.firstName} #{project.Sponsor.lastName}
+            td= project.projectType
+            td= moment(project.startDate).format('l')
+            td= moment(project.endDate).format('l')
+            td
+              include partial_projectStatus
+            td 
+              if project.link_source
+                = project.link_source
+              else
+                a(href='#', class='open-modal', data-link-id=project.id) Assign
+            td
+              if project.link_source
+                if project.link_source === 'portfolio'
+                  a(href='/pmo/portfolio/' + project.portfolio.id) #{project.portfolio.year}
+                else if project.link_source === 'program'
+                  a(href='/pmo/project/' + project.program.id) #{project.program.name}
+
+  // Modal Structure
+  #myModal.modal(style="display:none;")
+    .modal-content
+      span.close(style='cursor:pointer') &times;
+      form(action='/pmo', method='POST')
+        input(type='hidden', name='project_id', id='project_id')
+        label Assign the project to
+          select(name='link_source', hx-get='/pmo/program_list', hx-target='#model')
+            option(value='', disabled) Select an option
+            option(value='program') program
+            option(value='portfolio') portfolio
+        label Select the program or the portfolio
+          select(name='link_id', id='model')
+            for program in programs 
+              option(value=program.id) #{program.name}
+        button(type="submit") Submit

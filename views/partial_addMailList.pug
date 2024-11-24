@@ -1,0 +1,27 @@
+ul
+  each mail in status.statusML
+    li(id='ml_' + mail.id) #{mail.statusParticipant.firstName} #{mail.statusParticipant.lastName}
+      a(href='#', hx-delete='/pmo/mailinglist/' + mail.id, hx-target='#ml_' + mail.id, hx-confirm='Are you sure to delete mailing list participant?' hx-swap='outerHTML')
+              span.material-symbols-outlined remove
+details
+  summary.outline(role="button")
+    span.material-symbols-outlined add
+  span.htmx-indicator Loading...
+  p= employees
+  form(action='/pmo/status/' + status.id + '/add_maillist', method='POST')
+    fieldset
+      input#search(
+        type="search", 
+        name="q"
+        placeholder="Search...",
+        hx-get="/pmo/employee/search",
+        hx-target="#itemSelect",
+        hx-swap="innerHTML",
+        hx-trigger="keyup changed delay:500ms, search",
+        hx-indicator=".htmx-indicator")
+    fieldset
+      select#itemSelect(name="selectedItems" multiple)
+        each user in allUsers
+          option(value=user.id) #{user.firstName} #{user.lastName}
+    fieldset
+      button(type="submit") Add

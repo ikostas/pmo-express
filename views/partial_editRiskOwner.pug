@@ -1,0 +1,6 @@
+form(hx-put='/pmo/risk_owner/' + issue.id + '/edit', hx-target='this', hx-swap='outerHTML')
+  select(name="owner", value=issue.owner)
+    each user in users
+      option(value=user.id) #{user.firstName} #{user.lastName}
+  button Update
+  button.secondary(hx-get='/pmo/risk_owner/' + issue.id) Cancel

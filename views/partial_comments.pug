@@ -1,0 +1,10 @@
+h2 Comments 
+  span.material-symbols-outlined chat
+div#comments
+if comments.length !== 0
+  each issue in comments
+    include partial_addComment
+form(hx-post=postAddress, hx-swap="afterend", hx-target="#comments", hx-on::after-request="this.reset()")
+  label Comment
+    textarea(name='comment')
+  input(type="submit" value="Add a comment")

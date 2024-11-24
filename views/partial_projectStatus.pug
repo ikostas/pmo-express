@@ -1,0 +1,7 @@
+div(style='display: inline-block; margin-right: 10px;' hx-target='this', hx-swap='outerHTML')
+  = project.projectStatus
+  | 
+  - var symbol = project.projectStatus === 'closed' ? 'undo' : 'close'
+  a(href='#', hx-put='/pmo/project/' + project.id + '/change_status')
+    span.material-symbols-outlined #{symbol}
+    

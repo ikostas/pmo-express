@@ -1,0 +1,38 @@
+extends layout
+
+block content
+  h1= title
+  details
+    summary.outline(role="button")
+      span.material-symbols-outlined add
+    include partial_addPortfolio
+  if portfolios.length === 0
+    p No portfolios found
+  else
+    table
+      thead
+        tr
+          td ID
+          td Owner
+          td Sponsor
+          td Year
+          td Risk
+          td Profitability
+          td Actions
+      tbody
+        each portfolio in portfolios
+          tr(id='portfolio_' + portfolio.id)
+            td
+              a(href='/pmo/portfolio/' + portfolio.id) #{portfolio.id}
+            td #{portfolio.portfolioOwner.firstName} #{portfolio.portfolioOwner.lastName}
+            td #{portfolio.portfolioSponsor.firstName} #{portfolio.portfolioSponsor.lastName}
+            td
+              a(href='/pmo/portfolio/' + portfolio.id) #{portfolio.year}
+            td
+            td
+            td 
+              a(href='#', hx-delete='/pmo/portfolio/' + portfolio.id, hx-target='#portfolio_' + portfolio.id, hx-confirm='Are you sure to delete portfolio?')
+                span.material-symbols-outlined remove
+              | 
+              a(href='/pmo/portfolio/' + portfolio.id + '/edit')
+                span.material-symbols-outlined edit

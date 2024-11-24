@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  p
+    a(href='/pmo/project/' + status.project_status.id) Back to #{projectTypes[status.project_status.projectType]}
+  h1 Status by #{status.status_author.firstName} #{status.status_author.lastName}
+  ul
+    li #{projectTypes[status.project_status.projectType]} name: #{status.project_status.name}
+    li= status.date
+    - var statusClass = 'circle ' + status.status
+    li Status: 
+      div(class=statusClass)
+  h2 Mailing List 
+    span.material-symbols-outlined mail
+  include partial_addMailList
+  h2 Full Description
+  != status.message
+  h2 Attachments 
+    span.material-symbols-outlined description
+  - var itemType = 'status'
+  - var itemId = status.id
+  include partial_addAttachment
+  - var attachments = status.statusAttach
+  include partial_attachmentList
+  - var comments = status.comment
+  - var postAddress = '/pmo/' + status.id + '/add_comment?from=status'
+  include partial_comments

@@ -1,0 +1,34 @@
+form(method='POST', action='/pmo/project/' + project.id + '/add_issue?type=' + formDetails.issueType)
+  if formDetails.issueType === 'issue'
+    fieldset
+      legend Issue type
+      label 
+        input(type="radio", name="type", value="concern")
+        | Concern
+      label 
+        input(type="radio", name="type", value="off-specification")
+        | Off-specification
+  fieldset.grid
+    label Issue name
+      input(type="text" name="name")
+    label Date raised
+      input(type="date", name="date_raised")
+    label Author
+      select(name="author")
+        each user in users
+          option(value=user.id) #{user.firstName} #{user.lastName}
+  fieldset.grid
+    if formDetails.issueType !== 'risk'
+      label Priority
+        input(type="number", name="priority")
+      label Severity
+        input(type="number", name="severity")
+    else
+      label Risk probability
+        input(type="number", name="risk_probability")
+      label Risk impact
+        input(type="number", name="risk_impact")
+  fieldset
+    label Full Description (Markdown)
+      textarea(name="description")
+  input(type="submit", value=formDetails.buttonName)

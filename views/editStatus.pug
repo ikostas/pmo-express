@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  h1 Edit status
+  form(method='POST', action='/pmo/status/' + status.id + '/edit')
+    fieldset.grid
+      label Status date
+        input(type="date", name="date", value=moment(status.date).format('YYYY-MM-DD'))
+      label Status author
+        select(name="author", value=status.author)
+          each user in users
+            option(value=user.id) #{user.firstName} #{user.lastName}
+      legend Project status indicator
+        - var colors = { green: 'Green', yellow: 'Yellow', red: 'Red' }
+        each value, key in colors
+          label= value
+            if  key === status.status
+              input(type='radio', name='status', value=key, checked)
+            else
+              input(type='radio', name='status', value=key)
+    fieldset
+      label Status message (Markdown)
+        textarea(name="message") #{status.message}
+    input(type="submit", value="Update status")

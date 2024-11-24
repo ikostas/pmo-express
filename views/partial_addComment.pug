@@ -1,0 +1,6 @@
+div(id='comment_' + issue.id)
+  em #{issue.CommentAuthor.firstName} #{issue.CommentAuthor.lastName} #{moment(issue.date).format('LLL')} 
+  a(href='#', hx-delete='/pmo/' + issue.id + '/remove_comment', hx-confirm='Are you sure to remove this comment?', hx-target='#comment_'+ issue.id)
+    span.material-symbols-outlined remove
+  pre= issue.comment
+  hr

@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  h1= title
+  form(method='POST', action='/pmo/initiative/' + initiative.id + '/edit')
+    fieldset
+      label Name
+        input(type="text", name="name", value=initiative.name)
+      label Author
+        select(name="author", value=initiative.author)
+          each user in users
+            option(value=user.id) #{user.firstName} #{user.lastName}
+      label Brief Description (plain text for the list)
+        textarea(name="brief_desc")= initiative.brief_desc
+      label Full Description (Markdown)
+        textarea(name="full_desc")= initiative.full_desc
+    input(type="submit" value="Update initiative")
+

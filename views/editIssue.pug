@@ -1,0 +1,39 @@
+extends layout
+
+block content
+  h1= title
+  form(method='POST', action='/pmo/issue/' + issue.id + '/edit')
+    fieldset
+      legend Issue type
+      each type_name, issue_type in {concern: 'Concern', change: 'Change', problem: 'Problem', risk: 'Risk', 'off-specification': 'Off-specification'}
+        label 
+          if issue_type === issue.type
+            input(type="radio", name="type", value=issue_type, checked)
+          else
+            input(type="radio", name="type", value=issue_type)
+          |
+          = type_name
+    fieldset.grid
+      label Issue name
+        input(type="text" name="name" value=issue.name)
+      label Date raised
+        input(type="date", name="date_raised" value=moment(issue.date_raised).format('YYYY-MM-DD'))
+      label Author
+        select(name="author" value=issue.author)
+          each user in users
+            option(value=user.id) #{user.firstName} #{user.lastName}
+    fieldset.grid
+      if issue.type !== 'risk'
+        label Priority
+          input(type="number", name="priority" value=issue.priority)
+        label Severity
+          input(type="number", name="severity" value=issue.severity)
+      else
+        label Risk probability
+          input(type="number", name="risk_probability" value=issue.risk_probability)
+        label Risk impact
+          input(type="number", name="risk_impact" value=issue.risk_impact)
+    fieldset
+      label Full Description (Markdown)
+        textarea(name="description")= issue.description
+    input(type="submit", value="Update an issue")

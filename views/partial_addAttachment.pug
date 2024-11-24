@@ -1,0 +1,10 @@
+details
+  summary.outline(role="button")
+    span.material-symbols-outlined add
+  form(enctype='multipart/form-data', action='/pmo/' + itemId + '/add_attachment?type=' + itemType, method='POST')
+    fieldset.grid
+      label 
+        input(type="text", name="name", placeholder="Name", required)
+      label
+        input(type="file", name="file")
+      input(type="submit", value="Add attachment")

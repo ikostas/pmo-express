@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  h1= title
+
+  form(method='POST', action='/pmo/portfolio/' + portfolio.id + '/edit')
+    fieldset.grid
+      label Portfolio Owner 
+        select(name="owner" value=portfolio.owner)
+          each user in users
+            option(value=user.id) #{user.firstName} #{user.lastName}
+      label Portfolio Sponsor
+        select(name="sponsor" value=portfolio.sponsor)
+          each user in users
+            option(value=user.id) #{user.firstName} #{user.lastName}
+      label Year
+        input(type="number", name="year" value=portfolio.year)
+    input(type="submit" value="Update a portfolio")

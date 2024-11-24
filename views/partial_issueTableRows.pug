@@ -1,0 +1,38 @@
+tr(id='issue_' + issue.id)
+  td= issue.id
+  td
+    a(href='/pmo/issue/' + issue.id) #{issue.name}
+  td= moment(issue.date_raised).format('l')
+  td= issue.status
+  if formDetails.issueType !== 'risk'
+    td= issue.priority
+    td= issue.severity
+    - var issue_rating = issue.priority * issue.severity
+    td= issue_rating 
+  else
+    td= issue.risk_probability
+    td= issue.risk_impact
+    td
+      include partial_riskOwner
+    - var risk_rating = issue.risk_probability * issue.risk_impact
+    td= risk_rating
+  if formDetails.issueType === 'issue'
+    td= issue.type
+  td 
+    a(href='#', hx-delete='/pmo/issue/' + issue.id, hx-target='#issue_' + issue.id, hx-confirm='Are you sure to delete an issue?')
+      span.material-symbols-outlined remove
+    | 
+    a(href='/pmo/issue/' + issue.id + '/edit')
+      span.material-symbols-outlined edit
+    | 
+    if issue.status === 'requested'
+      a(href='#', hx-put='/pmo/issue/' + issue.id + '/change_status?direction=forward', hx-target='#issue_' + issue.id, hx-swap='outerHTML')
+        span.material-symbols-outlined arrow_forward
+    else if issue.status === 'approved'
+      a(href='#', hx-put='/pmo/issue/' + issue.id + '/change_status?direction=back', hx-target='#issue_' + issue.id, hx-swap='outerHTML')
+        span.material-symbols-outlined arrow_back
+      a(href='#', hx-put='/pmo/issue/' + issue.id + '/change_status?direction=forward', hx-target='#issue_' + issue.id, hx-swap='outerHTML')
+        span.material-symbols-outlined arrow_forward
+    else
+      a(href='#', hx-put='/pmo/issue/' + issue.id + '/change_status?direction=back', hx-target='#issue_' + issue.id, hx-swap='outerHTML')
+        span.material-symbols-outlined arrow_back

@@ -1,0 +1,12 @@
+ul
+  for status in statuses
+    li(id='status_' + status.id)
+      div(class='circle ' + status.status)
+      | 
+      a(href='/pmo/status/' + status.id) #{moment(status.date).format('l')} by #{status.status_author.firstName} #{status.status_author.lastName}
+      | 
+      a(href='/pmo/status/' + status.id + '/edit')
+        span.material-symbols-outlined edit
+      | 
+      a(href='#', hx-delete='/pmo/status/' + status.id, hx-target='#status_' + status.id, hx-confirm='Are you sure to delete a status?' hx-swap='outerHTML')
+        span.material-symbols-outlined remove

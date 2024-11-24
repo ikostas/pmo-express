@@ -1,0 +1,48 @@
+extends layout
+
+block content
+  p
+    a(href='/pmo/project/' + issue.project) Back to project
+  h1= title
+  h2 #{issue.name} by #{issue.Author.firstName} #{issue.Author.lastName}
+  ul
+    li Date raised: #{moment(issue.date_raised).format('l')}
+    li Status: #{issue.status}
+    li Project: 
+      a(href='/pmo/project/' + issue.Project.id) #{issue.Project.id} #{issue.Project.name}
+    if issue.type != 'risk'
+      li Priority: #{issue.priority}
+      li Severity: #{issue.severity}
+    else
+      li Probability: #{issue.risk_probability}
+      li Impact: #{issue.risk_impact}
+      if issue.Owner
+        li Owner: #{issue.Owner.firstName} #{issue.Owner.lastName}
+  h2 Actions
+  ul
+    li
+      a(href='/pmo/issue/' + issue.id + '/edit')
+        span.material-symbols-outlined edit 
+        | 
+        | Edit issue attributes
+    li
+      a(href='#comments') 
+        span.material-symbols-outlined comment
+        | 
+        | Add a comment
+    if issue.type === 'risk'
+      li
+        span.material-symbols-outlined person
+        | Risk Owner:
+        include partial_riskOwner
+  h2 Attachments
+  - var itemType = 'issue'
+  - var itemId = issue.id
+  include partial_addAttachment
+  - var attachments = issue.Attachments
+  include partial_attachmentList
+  h2 Full Description
+  != issue.description
+  - var comments = issue.comment
+  - var postAddress = '/pmo/' + issue.id + '/add_comment?from=issue'
+  include partial_comments

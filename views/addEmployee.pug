@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1= title
+  form(method="POST" action="add_employee")
+    fieldset.grid
+      label First name
+        input(type="text" name="firstName")
+      label Last name
+        input(type="text" name="lastName")
+      label Email
+        input(type="text" name="email" autocomplete="email")
+    input(type="submit" value="Add employee")

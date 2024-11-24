@@ -1,0 +1,25 @@
+tr(id='setup_' + newRow.id)
+  if newRow.fileName
+    td 
+      - const strippedFileName = newRow.fileName.replace('uploads', '..')
+      a(href=strippedFileName) #{newRow.Name}
+  else
+    td= newRow.Name
+  td
+    if newRow.forProjects
+      span.material-symbols-outlined radio_button_checked
+    else
+      span.material-symbols-outlined radio_button_unchecked
+  td
+    if newRow.forPrograms
+      span.material-symbols-outlined radio_button_checked
+    else
+      span.material-symbols-outlined radio_button_unchecked
+  td
+    if newRow.forPortfolios
+      span.material-symbols-outlined radio_button_checked
+    else
+      span.material-symbols-outlined radio_button_unchecked
+  td
+    a(href='#', hx-delete='/pmo/attach_setup/' + newRow.id, hx-target='#setup_' + newRow.id, hx-confirm='Are you sure to delete this setting?')
+      span.material-symbols-outlined remove

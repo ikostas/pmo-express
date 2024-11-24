@@ -1,0 +1,4 @@
+- var statuses = project.statuses
+  include partial_viewStatuses
+if status_count > 5
+  button(hx-get='/pmo/project/' + project.id + '/load' hx-swap='outerHTML') Load the rest #{status_count - 5} elements

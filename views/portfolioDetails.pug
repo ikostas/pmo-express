@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  p
+    a(href='/pmo/portfolios') Back to portfolios list
+  h1= title
+  h2 Portfolio #{portfolio.year}
+  ul
+    li Sponsor: #{portfolio.portfolioOwner.firstName} #{portfolio.portfolioOwner.lastName}
+    li Owner: #{portfolio.portfolioSponsor.firstName} #{portfolio.portfolioSponsor.lastName}
+  h2 Attachments
+  - var itemType = 'portfolio'
+  - var itemId = portfolio.id
+  include partial_addAttachment
+  - var attachments = portfolio.portfolioAttach
+  include partial_attachmentList

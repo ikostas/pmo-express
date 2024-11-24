@@ -1,0 +1,13 @@
+form(method='POST', action='/pmo/portfolios')
+  fieldset.grid
+    label Portfolio Owner 
+      select(name="owner")
+        each user in users
+          option(value=user.id) #{user.firstName} #{user.lastName}
+    label Portfolio Sponsor
+      select(name="sponsor")
+        each user in users
+          option(value=user.id) #{user.firstName} #{user.lastName}
+    label Year
+      input(type="number", name="year")
+  input(type="submit" value="Add portfolio")

@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1= title
+  form(method="POST" action="login")
+    fieldset.grid
+      label Username 
+        input(type="text" name="username")
+      label Password
+        input(type="password" name="password")
+    fieldset
+      input(type="submit" value="Login")

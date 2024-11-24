@@ -1,0 +1,6 @@
+div(style='display: inline-block; margin-right: 10px;' hx-target='this', hx-swap='outerHTML')
+  if issue.Owner
+    | #{issue.Owner.firstName} #{issue.Owner.lastName} 
+    a(href='#', hx-get='/pmo/risk_owner/' + issue.id + '/edit') Edit
+  else
+    a(href='#', hx-get='/pmo/risk_owner/' + issue.id + '/edit') Assign

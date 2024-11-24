@@ -1,0 +1,33 @@
+extends layout
+
+block content
+  h1= title
+  form(enctype="multipart/form-data", hx-post="/pmo/add_attach_setup", hx-target="#table-body", hx-swap="beforeend" hx-on::after-request="this.reset()")
+    fieldset.grid
+      label 
+        input(type="text" name="Name" placeholder="Name")
+      label
+        input(type="checkbox" name="forProjects")
+        | Applicable to projects
+      label
+        input(type="checkbox" name="forPrograms")
+        | Applicable to programs
+      label
+        input(type="checkbox" name="forPortfolios")
+        | Applicable to portfolio
+      label
+        input(type="file" name="file")
+        | Standard template
+      input(type="submit" value="Add attachment type")
+
+  table
+    thead
+      tr
+        td Name
+        td Projects
+        td Programs
+        td Portfolio
+        td Action: remove
+    tbody#table-body
+      each newRow in items
+        include partial_addProjectSetup

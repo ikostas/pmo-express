@@ -1,0 +1,76 @@
+ /* The alert message box */
+.alert {
+  padding: 20px;
+  color: white;
+  margin-bottom: 15px;
+}
+
+.alert.warning {
+  background-color: #FF9500;
+}
+
+.alert.danger {
+  background-color: #D93526;
+}
+
+.alert.success {
+  background-color: #398712;
+}
+
+.alert.info {
+  background-color: #3C71F7;
+}
+
+/* The close button */
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+  color: black;
+} 
+
+.circle {
+  width: 1em; /* Circle diameter */
+  height: 1em; /* Circle diameter */
+  border-radius: 50%; /* Makes it a circle */
+  display: inline-block; /* Aligns circles in a row */
+}
+.red {
+  background-color: #D93526; /* Red circle */
+}
+.green {
+  background-color: #398712; /* Green circle */
+}
+.yellow {
+  background-color: #F2DF0D; /* Blue circle */
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}

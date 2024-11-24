@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h1= title
+  p
+    a(href="/employee/add_employee")
+      span.material-symbols-outlined add
+  table
+    thead
+      tr
+        td ID
+        td First name
+        td Last name
+        td Email
+        td Action: remove
+    tbody
+      each employee in employees
+        tr(id='employee_' + employee.id)
+          td= employee.id
+          td= employee.firstName
+          td= employee.lastName
+          td= employee.email
+          td
+            a(href='#', hx-delete='/employee/' + employee.id, hx-target='#employee_' + employee.id, hx-confirm='Are you sure to delete an employee record?')
+              span.material-symbols-outlined remove

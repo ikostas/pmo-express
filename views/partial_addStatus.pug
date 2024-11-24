@@ -1,0 +1,17 @@
+form(method='POST', action='/pmo/project/' + project.id + '/add_status')
+  fieldset.grid
+    label Status date
+      input(type="date", name="date")
+    label Status author
+      select(name="author")
+        each user in users
+          option(value=user.id) #{user.firstName} #{user.lastName}
+    legend Project status indicator
+      - var colors = { green: 'Green', yellow: 'Yellow', red: 'Red' }
+      each value, key in colors
+        label= value
+          input(type='radio' name='status' value=key)
+  fieldset
+    label Status message (Markdown)
+      textarea(name="message")
+  input(type="submit", value="Add status")

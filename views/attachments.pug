@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  h1= title
+  p
+    a(href="/attachments/add_attachment")
+      span.material-symbols-outlined add
+  table
+    thead
+      tr
+        td ID
+        td Name
+        td For Projects
+        td For Programs
+        td For For Portfolios
+    tbody
+      each attach in attaches
+        tr
+          td= attach.id
+          td= attach.name
+          td= attach.forProjects
+          td= attach.forPrograms
+          td= attach.forPortfolios

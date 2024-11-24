@@ -1,0 +1,47 @@
+extends layout
+
+block content
+  p
+    a(href='/pmo/initiatives?status=open') Back to initiatives list
+  h1= title
+  h2 #{initiative.name} by #{initiative.initiator.firstName} #{initiative.initiator.lastName}
+  h2 Actions
+  ul
+    li
+      a(href='/pmo/initiative/' + initiative.id + '/edit')
+        span.material-symbols-outlined edit 
+        | 
+        | Edit initiative attributes
+    li
+      a(href='#comments') 
+        span.material-symbols-outlined comment
+        | 
+        | Add a comment
+    li
+      a(href='/pmo/add_project/' + initiative.id) 
+        span.material-symbols-outlined view_timeline
+        | 
+        | Convert to a project
+    li
+      a(href='/pmo/initiative/' + initiative.id + '/change_status') 
+        if initiative.status === 'open'
+          span.material-symbols-outlined close
+          | 
+          | Close the initiative
+        else
+          span.material-symbols-outlined undo
+          | 
+          | Open the initiative
+  - var itemType = 'initiative'
+  - var itemId = initiative.id
+  include partial_addAttachment
+  h2 Brief Description
+  pre= initiative.brief_desc
+  h2 Attachments
+  - var attachments = initiative.attachments
+  include partial_attachmentList
+  h2 Full Description
+  != initiative.full_desc
+  - var comments = initiative.comment
+  - var postAddress = '/pmo' + initiative.id + '/add_comment?from=initiative'
+  include partial_comments

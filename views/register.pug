@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  h1= title
+  form(method="POST" action="register")
+    fieldset.grid
+      label First name
+        input(type="text" name="firstName")
+      label Last name
+        input(type="text" name="lastName")
+    fieldset.grid
+      label Username 
+        input(type="text" name="username")
+      label Password
+        input(type="password" name="password")
+      label Email
+        input(type="text" name="email" autocomplete="email")
+    fieldset
+      input(type="submit" value="Register")

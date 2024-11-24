@@ -1,0 +1,45 @@
+extends layout
+
+block content
+  h1= title
+  if initiative
+    details
+      summary.outline(role="button")
+        | Show source initiative
+      p #{initiative.name} by #{initiative.initiator.firstName} #{initiative.initiator.lastName}
+      include partial_initiative
+  if initiative
+    - var action = '/pmo/add_project/' + initiative.id
+  else
+    - var action = '/pmo/add_project'
+  form(method="POST" action=action)
+    fieldset
+      label Name
+        input(type="text" name="name")
+      label Description
+        textarea(name="description")
+    fieldset.grid
+      label Budget
+        input(type="number" name="budget")
+      label Profitability
+        input(type="number" name="profitability")
+      label Start Date
+        input(type="date" name="startDate")
+      label End Date
+        input(type="date" name="endDate")
+    fieldset.grid
+      label Project Manager
+        select(name="projectManager")
+          each user in users
+            option(value=user.id) #{user.firstName} #{user.lastName}
+      label Project Sponsor
+        select(name="projectSponsor")
+          each user in users
+            option(value=user.id) #{user.firstName} #{user.lastName}
+      label Project Type
+        select(name="projectType")
+          option(value="project") Project
+          option(value="task") Task
+          option(value="program") Program
+    input(type="submit" value="Add project")
+
