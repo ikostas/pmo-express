@@ -27,6 +27,9 @@ router.get('/pmo/add_project/:id', projectController.addProjectFromInitiative);
 router.post('/pmo/add_project/:id', projectController.createProjectFromInitiative);
 router.put('/pmo/project/:id/change_status', projectController.changeProjectStatus);
 router.get('/pmo/project/:id/change_status', projectController.showProjectStatus);
+router.get('/pmo/project/:id/update_desc', projectController.changeProjectDesc);
+router.put('/pmo/project/:id/update_desc', projectController.updateProjectDesc);
+router.get('/pmo/project/:id/reload_desc', projectController.reloadProjectDesc);
 router.get('/pmo/program_list', projectController.portfolioProgramList);
 router.post('/pmo', projectController.assignProjectLink);
 

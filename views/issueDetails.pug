@@ -40,7 +40,8 @@ block content
   - var itemId = issue.id
   include partial_addAttachment
   - var attachments = issue.Attachments
-  include partial_attachmentList
+  div(id=`attach-${itemType}`)
+    include partial_attachmentList
   h2 Full Description
   != issue.description
   - var comments = issue.comment

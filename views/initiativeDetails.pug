@@ -39,7 +39,8 @@ block content
   pre= initiative.brief_desc
   h2 Attachments
   - var attachments = initiative.attachments
-  include partial_attachmentList
+  div(id=`attach-${itemType}`)
+    include partial_attachmentList
   h2 Full Description
   != initiative.full_desc
   - var comments = initiative.comment

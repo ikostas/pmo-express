@@ -1,0 +1,32 @@
+form(hx-put="/pmo/project/" + project.id + "/update_desc", hx-target="#project-description", hx-swap="innerHTML")
+  fieldset
+    label Name
+      input(type="text" name="name" value=project.name)
+    label Description
+      textarea(name="description") #{project.description}
+  fieldset.grid
+    label Budget
+      input(type="number" name="budget" value=project.budget)
+    label Profitability
+      input(type="number" name="profitability" value=project.profitability)
+    label Start Date
+      input(type="date" name="startDate" value=moment(project.startDate).format('YYYY-MM-DD'))
+    label End Date
+      input(type="date" name="endDate" value=moment(project.endDate).format('YYYY-MM-DD'))
+  fieldset.grid
+    label Project Manager
+      select(name="projectManager")
+        each user in users
+          option(value=user.id, selected=user.id === project.Manager) #{user.firstName} #{user.lastName}
+    label Project Sponsor
+      select(name="projectSponsor")
+        each user in users
+          option(value=user.id, selected=user.id === project.Sponsor) #{user.firstName} #{user.lastName}
+    label Project Type
+      select(name="projectType")
+        option(value="project", selected=project.projectType === 'project') Project
+        option(value="task", selected=project.projectType === 'task') Task
+        option(value="program", selected=project.projectType === 'program') Program
+  .grid
+    button(type="button", hx-get="/pmo/project/" + project.id + "/reload_desc", hx-target="#project-description", hx-swap="innerHTML") Cancel
+    input(type="submit", value="Update project")

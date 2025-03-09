@@ -13,4 +13,5 @@ block content
   - var itemId = portfolio.id
   include partial_addAttachment
   - var attachments = portfolio.portfolioAttach
-  include partial_attachmentList
+  div(id=`attach-${itemType}`)
+    include partial_attachmentList

@@ -1,4 +1,6 @@
 if attachments.length !== 0
+  if successMessageAttach
+    != successMessageAttach
   ul
     each attach in attachments
       - const strippedFileName = attach.link.replace('uploads', '../..')
@@ -7,4 +9,3 @@ if attachments.length !== 0
         span &nbsp;
         a(href='#', hx-delete='/pmo/' + attach.id + '/delete_attach', hx-target='#attach_' + attach.id, hx-confirm='Are you sure to delete attachment?' hx-swap='outerHTML')
           span.material-symbols-outlined remove
-

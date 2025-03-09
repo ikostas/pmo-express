@@ -1,7 +1,7 @@
 details
   summary.outline(role="button")
     span.material-symbols-outlined add
-  form(enctype='multipart/form-data', action='/pmo/' + itemId + '/add_attachment?type=' + itemType, method='POST')
+  form(enctype='multipart/form-data', hx-post='/pmo/' + itemId + '/add_attachment?type=' + itemType, hx-target="#attach-" + itemType, hx-swap="innerHTML", hx-on::after-request="this.reset()")
     fieldset.grid
       label 
         input(type="text", name="name", placeholder="Name", required)

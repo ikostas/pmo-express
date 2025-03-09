@@ -1,4 +1,4 @@
-form(method='POST', action='/pmo/project/' + project.id + '/add_issue?type=' + formDetails.issueType)
+form(hx-post="/pmo/project/" + project.id + "/add_issue?type=" + formDetails.issueType, hx-swap="innerHTML", hx-target="#issue-type-" + formDetails.issueType, hx-on::after-request="this.reset()")
   if formDetails.issueType === 'issue'
     fieldset
       legend Issue type

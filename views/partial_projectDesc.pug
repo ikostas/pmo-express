@@ -1,0 +1,11 @@
+if successMessageProjUpdate
+  != successMessageProjUpdate 
+ul
+  li #{projectTypes[project.projectType]} name: #{project.name}
+  li #{projectTypes[project.projectType]} budget: #{project.budget}
+  li #{projectTypes[project.projectType]} profitability: #{project.profitability}
+  li #{projectTypes[project.projectType]} description:
+    != project.description
+  li Timeframe: #{moment(project.startDate).format('l')} &ndash; #{moment(project.endDate).format('l')}
+  li #{projectTypes[project.projectType]} Manager: #{project.Manager.firstName} #{project.Manager.lastName}
+  li #{projectTypes[project.projectType]} Sponsor: #{project.Sponsor.firstName} #{project.Sponsor.lastName}

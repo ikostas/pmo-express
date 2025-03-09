@@ -4,15 +4,12 @@ block content
   p
     a(href='/pmo?status=open') Back to projects list
   h1 #{projectTypes[project.projectType]} Details
+  a(href="" hx-get="/pmo/project/" + project.id + "/update_desc", hx-target="#project-description", hx-swap="innerHTML")
+    span.material-symbols-outlined edit
+  div(id="project-description")
+    include partial_projectDesc
+  p Aggregated project info:
   ul
-    li #{projectTypes[project.projectType]} name: #{project.name}
-    li #{projectTypes[project.projectType]} budget: #{project.budget}
-    li #{projectTypes[project.projectType]} profitability: #{project.profitability}
-    li #{projectTypes[project.projectType]} description:
-      pre= project.description
-    li Timeframe: #{moment(project.startDate).format('l')} &ndash; #{moment(project.endDate).format('l')}
-    li #{projectTypes[project.projectType]} Manager: #{project.Manager.firstName} #{project.Manager.lastName}
-    li #{projectTypes[project.projectType]} Sponsor: #{project.Sponsor.firstName} #{project.Sponsor.lastName}
     li #{projectTypes[project.projectType]} Open/Closed: 
       include partial_projectStatus
     if project.statuses.length !== 0
@@ -21,7 +18,8 @@ block content
     if initiative
       li Initiative:
         a(href='/pmo/initiative/' + initiative.id) #{initiative.name}
-    li #{projectTypes[project.projectType]} risk: #{project.avgRisk}
+    if project.Issues.filter(issue => issue.type === 'risk').length
+      li #{projectTypes[project.projectType]} risk: #{project.avgRisk}
   h2 Quick links
   ul
     if templates.length !== 0
@@ -69,24 +67,27 @@ block content
   - var itemId = project.id
   include partial_addAttachment
   - var attachments = project.project_docs
-  include partial_attachmentList
+  div(id=`attach-${itemType}`)
+    include partial_attachmentList
   h3#docs_statuses Statuses 
     span.material-symbols-outlined flag
   details
     summary.outline(role="button")
       span.material-symbols-outlined add
     include partial_addStatus
-  if project.statuses.length !== 0
-    include partial_statusList
+  div(id="status-list")
+    if project.statuses.length !== 0
+      include partial_statusList
   h3#docs_issues Issues 
     span.material-symbols-outlined question_mark
   details
     summary.outline(role="button")
       span.material-symbols-outlined add
     - var formDetails = { issueType: 'issue', buttonName: 'Add an issue'}
-    include partial_addIssue
-  if project.Issues.filter(issue => issue.type === 'concern' || issue.type === 'off-specification').length
-    include partial_issueTable
+      include partial_addIssue
+  div(id=`issue-type-${formDetails.issueType}`)
+    if project.Issues.filter(issue => issue.type === 'concern' || issue.type === 'off-specification').length
+      include partial_issueTable
   h3#docs_changes Changes 
     span.material-symbols-outlined change_circle
   details
@@ -94,17 +95,19 @@ block content
       span.material-symbols-outlined add
     - var formDetails = { issueType: 'change', buttonName: 'Add a change request'}
     include partial_addIssue
-  if project.Issues.filter(issue => issue.type === 'change').length
-    include partial_issueTable
+  div(id=`issue-type-${formDetails.issueType}`)
+    if project.Issues.filter(issue => issue.type === 'change').length
+      include partial_issueTable
   h3#docs_problems Problems 
     span.material-symbols-outlined brightness_alert
   details
     summary.outline(role="button")
       span.material-symbols-outlined add
     - var formDetails = { issueType: 'problem', buttonName: 'Add a problem'}
-    include partial_addIssue
-  if project.Issues.filter(issue => issue.type === 'problem').length
-    include partial_issueTable
+      include partial_addIssue
+  div(id=`issue-type-${formDetails.issueType}`)
+    if project.Issues.filter(issue => issue.type === 'problem').length
+      include partial_issueTable
   h3#docs_risks Risks 
     span.material-symbols-outlined warning
   details
@@ -112,15 +115,17 @@ block content
       span.material-symbols-outlined add
     - var formDetails = { issueType: 'risk', buttonName: 'Add a risk'}
     include partial_addIssue
-  if project.Issues.filter(issue => issue.type === 'risk').length
-    include partial_issueTable
+  div(id=`issue-type-${formDetails.issueType}`)
+    if project.Issues.filter(issue => issue.type === 'risk').length
+      include partial_issueTable
   h2#results #{projectTypes[project.projectType]} results 
     span.material-symbols-outlined description
   - var itemType = 'project_result'
   - var itemId = project.id
   include partial_addAttachment
   - var attachments = project.project_result
-  include partial_attachmentList
+  div(id=`attach-${itemType}`)
+    include partial_attachmentList
   - var comments = project.comment
   - var postAddress = '/pmo/' + project.id + '/add_comment?from=project'
   include partial_comments

@@ -1,4 +1,4 @@
-form(method='POST', action='/pmo/project/' + project.id + '/add_status')
+form(hx-post='/pmo/project/' + project.id + '/add_status', hx-target="#status-list"  hx-swap="innerHTML", hx-on::after-request="this.reset()")
   fieldset.grid
     label Status date
       input(type="date", name="date")

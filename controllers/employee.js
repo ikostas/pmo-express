@@ -3,7 +3,7 @@ const db  = require('../models');
 module.exports = {
   employeeList: async (req, res) => {
     employees = await db.User.findAll()
-    res.render('employees', { title: 'List of Employees', employees });
+    res.render('employees', { title: 'List of Employees', employees, user: req.session.user });
   },
   addEmployee: (req, res) => {
     res.render('addEmployee', { title: 'Add Employee' });

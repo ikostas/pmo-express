@@ -6,6 +6,7 @@ const logger = require('morgan');
 const db  = require('./models');
 const session = require('express-session');
 const flash = require('express-flash');
+const favicon = require('serve-favicon');
 
 async function test_connection() {
   try {
@@ -23,13 +24,13 @@ const usersRouter = require('./routes/users');
 
 const app = express();
 app.use(flash());
+app.use(favicon(path.join(__dirname, 'public/images/favicon.ico')));
 
 app.use(session({
   secret: process.env.TOKEN_SECRET,
   resave: false,
   saveUninitialized: true
 }));
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -61,6 +62,12 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+    // Log error details only in development mode
+  if (req.app.get('env') === 'development') {
+    console.error('Full error object:', err);
+    console.error('Error stack:', err.stack);
+  }
+
 });
 
 module.exports = app;
