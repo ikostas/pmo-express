@@ -44,5 +44,5 @@ block content
   h2 Full Description
   != initiative.full_desc
   - var comments = initiative.comment
-  - var postAddress = '/pmo' + initiative.id + '/add_comment?from=initiative'
+  - var postAddress = '/pmo/' + initiative.id + '/add_comment?from=initiative'
   include partial_comments
