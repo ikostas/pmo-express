@@ -32,12 +32,12 @@ block content
           span.material-symbols-outlined undo
           | 
           | Open the initiative
-  - var itemType = 'initiative'
-  - var itemId = initiative.id
-  include partial_addAttachment
   h2 Brief Description
   pre= initiative.brief_desc
   h2 Attachments
+  - var itemType = 'initiative'
+  - var itemId = initiative.id
+  include partial_addAttachment
   - var attachments = initiative.attachments
   div(id=`attach-${itemType}`)
     include partial_attachmentList

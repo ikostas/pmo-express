@@ -75,7 +75,7 @@ module.exports = {
   },
   addProjectFromInitiative: async (req, res) => {
     try {
-      users = await db.User.findAll({
+      const users = await db.User.findAll({
         attributes: ['id', 'firstName', 'lastName'],
       });
       const initiative = await db.Initiative.findByPk(req.params.id, {
@@ -461,7 +461,7 @@ module.exports = {
           } ],
           order: [['date', 'ASC']],
           required: false,
-          where: { source_type: 'initiative', source_id: initiative.id },
+          where: { source_type: 'initiative', source_id: req.params.id },
           },
           {
             model: db.Attachment,

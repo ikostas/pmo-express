@@ -16,7 +16,7 @@ block content
       li The latest status: 
         div(class='circle ' + [project.statuses[0].status])
     if initiative
-      li Initiative:
+      li Initiative: 
         a(href='/pmo/initiative/' + initiative.id) #{initiative.name}
     if project.Issues.filter(issue => issue.type === 'risk').length
       li #{projectTypes[project.projectType]} risk: #{project.avgRisk}

@@ -9,7 +9,7 @@ The goal is to manage the project lifecycle:
 1. Make sure you have Node.js installed.
 2. Install dependencies: `npm i`.
 3. Make sure you set `TOKEN_SECRET` as your secret and `NODE_ENV=development` in your `.env` file
-4. Initialize sequelize with `npx sequelize-cli init` and make migrations with `npx sequelize-cli db:migrate`
+4. Initialize sequelize with and make migrations with `npx sequelize-cli db:migrate`
 3. Launch the app: `npm start dev`
 
 Config for sequelize is in `config/config.json` and it's a sqlite database.

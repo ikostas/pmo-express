@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       MailingList.belongsTo(models.User, { as: 'statusParticipant', foreignKey: 'user' });
-      MailingList.belongsTo(models.Status, { as: 'statusId', foreignKey: 'status' });
+      MailingList.belongsTo(models.Status, { as: 'statusML', foreignKey: 'status' });
     }
   }
   MailingList.init({
