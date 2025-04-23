@@ -32,3 +32,8 @@ Writing the app I tried to write less code, so the templates are heavily reused,
 Technically it's an experiment with Express and HTMX for me, you can read the background story [here](https://en.kovchinnikov.info/2024-11-express.html).
 
 I also created an [express-bolierplate](https://github.com/ikostas/expressbp) without Multer.
+
+## Demo
+
+- [A video explaining app usage](https://www.youtube.com/watch?v=ykY-MSdFwmo)
+- [A quick demo of HTMX in this app](https://www.youtube.com/watch?v=_cEqjjdr3uw)
